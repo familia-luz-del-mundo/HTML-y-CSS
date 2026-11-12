@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luz del Mundo - Nuevo Chao</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#FFF8E7;text-align:center;transition:0.5s}
+.top{color:#fff;padding:28px 15px;transition:0.5s}.top h1{margin:0;font-size:26px}.top h2{margin:5px 0;font-size:13px;letter-spacing:1px}
+.addr{color:#fff;padding:12px;font-style:italic;font-weight:bold;transition:0.5s}
+.card{background:#fff;margin:20px 15px;padding:25px 18px;border-radius:20px;border:2px solid #ab7f2e;transition:0.5s}
+.vers{font-size:22px;font-weight:bold;color:#2C3E50;line-height:1.45;min-height:110px}
+.ref{font-weight:bold;margin:15px 0;transition:0.5s}
+button{color:#fff;border:0;padding:15px 30px;border-radius:30px;font-size:16px;font-weight:bold;width:100%;transition:0.5s}
+.reflex{background:#a1adf0;margin:0 15px 15px;padding:18px;border-radius:20px;border:1px solid #2E86AB;transition:0.5s}
+.foot{padding:10px 15px 30px;color:#10dceb;font-size:13px}
+.pal{font-size:12px;color:#888;margin-top:8px}
+.social{margin:0 15px 15px}
+.fb-btn{display:block;text-decoration:none;background:#1877F2;color:#fff;padding:15px 20px;border-radius:30px;font-weight:800;font-size:16px}
+</style></head><body>
+<div class="top" id="top"><div>OBRA EVANGÉLICA</div><h1>LUZ DEL MUNDO</h1><h2>— MISIÓN NUEVO CHAO —</h2></div>
+<div class="addr" id="addr">Av. Los Girasoles Mz 26 Lt 13</div>
+<div class="card" id="card"><div style="color:#2E86AB;font-weight:bold" id="tit">✦ VERSÍCULO DE HOY ✦</div>
+<p class="vers" id="v"></p><div class="ref" id="r"></div>
+<p style="color:#888">300 versículos completos • Colores que cambian con cada versículo</p>
+<button id="btn" onclick="nuevo()">OTRO VERSÍCULO ↻</button>
+<div class="pal" id="pal"></div></div>
+<div class="reflex" id="reflexBox"><b id="reftit">REFLEXIÓN</b><p id="re" style="color:#503d2c;line-height:1.5"></p></div>
+<div class="social">
+<a class="fb-btn" href="https://www.facebook.com/share/1MWTb5TtkB/" target="_blank">📘 Síguenos en Facebook</a>
+</div>
+<div class="foot"><b style="color:#2C3E50">Obra Evangélica Luz del Mundo - Misión Nuevo Chao</b><br>Av. Los Girasoles Mz 26 Lt 13 • Nuevo Chao<br><br><span id="footAccent" style="font-weight:bold">Escanea • Lee • Comparte</span></div>
+<script>
+const P=[
+{n:"Amanecer",top:"#E67E22",addr:"#F1C40F",btn:"#E67E22",borde:"#2E86AB",acento:"#E67E22"},
+{n:"Morado Luz",top:"#7D3C98",addr:"#AF7AC5",btn:"#7D3C98",borde:"#7D3C98",acento:"#7D3C98"},
+{n:"Océano",top:"#1A5276",addr:"#2E86C1",btn:"#1A5276",borde:"#1A5276",acento:"#1A5276"},
+{n:"Bosque Esperanza",top:"#1E8449",addr:"#58D68D",btn:"#1E8449",borde:"#1E8449",acento:"#1E8449"},
+{n:"Rosa Fe",top:"#C0392B",addr:"#EC7063",btn:"#C0392B",borde:"#C0392B",acento:"#C0392B"},
+{n:"Cielo Mañana",top:"#2E86AB",addr:"#5DADE2",btn:"#2E86AB",borde:"#2E86AB",acento:"#2E86AB"},
+{n:"Dorado Reino",top:"#935116",addr:"#D4AC0D",btn:"#935116",borde:"#935116",acento:"#935116"},
+{n:"Noche Estrellada",top:"#212F3C",addr:"#5D6D7E",btn:"#212F3C",borde:"#212F3C",acento:"#212F3C"}
+];
+const V=[
+["Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.","Jeremías 29:11"],
+["Todo lo puedo en Cristo que me fortalece.","Filipenses 4:13"],
+["Jehová es mi pastor; nada me faltará.","Salmos 23:1"],
+["No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.","Isaías 41:10"],
+["Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.","Romanos 8:28"],
+["Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas.","Josué 1:9"],
+["Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.","Salmos 46:1"],
+["Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.","Proverbios 3:5"],
+["Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.","Mateo 11:28"],
+["Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve.","Hebreos 11:1"],
+["Jehová es mi luz y mi salvación; ¿de quién temeré? Jehová es la fortaleza de mi vida; ¿de quién he de atemorizarme?","Salmos 27:1"],
+["Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán.","Isaías 40:31"],
+["Y el Dios de esperanza os llene de todo gozo y paz en el creer, para que abundéis en esperanza por el poder del Espíritu Santo.","Romanos 15:13"],
+["Porque por fe andamos, no por vista.","2 Corintios 5:7"],
+["Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.","Salmos 34:18"],
+["Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.","Juan 3:16"],
+["Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.","Filipenses 4:6"],
+["Deléitate asimismo en Jehová, y él te concederá las peticiones de tu corazón.","Salmos 37:4"],
+["Por la misericordia de Jehová no hemos sido consumidos, porque nunca decayeron sus misericordias. Nuevas son cada mañana; grande es tu fidelidad.","Lamentaciones 3:22-23"],
+["Echando toda vuestra ansiedad sobre él, porque él tiene cuidado de vosotros.","1 Pedro 5:7"],
+["Alzaré mis ojos a los montes; ¿de dónde vendrá mi socorro? Mi socorro viene de Jehová, que hizo los cielos y la tierra.","Salmos 121:1-2"],
+["Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.","Mateo 6:33"],
+["Cuando pases por las aguas, yo estaré contigo; y si por los ríos, no te anegarán. Cuando pases por el fuego, no te quemarás, ni la llama arderá en ti.","Isaías 43:2"],
+["El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente.","Salmos 91:1"],
+["Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.","2 Timoteo 1:7"],
+["La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón, ni tenga miedo.","Juan 14:27"],
+["Porque un momento será su ira, pero su favor dura toda la vida. Por la noche durará el lloro, y a la mañana vendrá la alegría.","Salmos 30:5"],
+["Encomienda a Jehová tus obras, y tus pensamientos serán afirmados.","Proverbios 16:3"],
+["Todo lo hizo hermoso en su tiempo; y ha puesto eternidad en el corazón de ellos.","Eclesiastés 3:11"],
+["Por tanto, os digo que todo lo que pidiereis orando, creed que lo recibiréis, y os vendrá.","Marcos 11:24"],
+["Y si alguno de vosotros tiene falta de sabiduría, pídala a Dios, el cual da a todos abundantemente y sin reproche, y le será dada.","Santiago 1:5"],
+["Lámpara es a mis pies tu palabra, y lumbrera a mi camino.","Salmos 119:105"],
+["No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento.","Romanos 12:2"],
+["No nos cansemos, pues, de hacer bien; porque a su tiempo segaremos, si no desmayamos.","Gálatas 6:9"],
+["Echa sobre Jehová tu carga, y él te sustentará; no dejará para siempre caído al justo.","Salmos 55:22"],
+["No os ha sobrevenido ninguna tentación que no sea humana; pero fiel es Dios, que no os dejará ser tentados más de lo que podéis resistir.","1 Corintios 10:13"],
+["Tú guardarás en completa paz a aquel cuyo pensamiento en ti persevera; porque en ti ha confiado.","Isaías 26:3"],
+["Y mirándolos Jesús, les dijo: Para los hombres esto es imposible; mas para Dios todo es posible.","Mateo 19:26"],
+["Jehová, roca mía y castillo mío, y mi libertador; Dios mío, fortaleza mía, en él confiaré.","Salmos 18:2"],
+["Jesucristo es el mismo ayer, y hoy, y por los siglos.","Hebreos 13:8"],
+["Pacientemente esperé a Jehová, y se inclinó a mí, y oyó mi clamor. Y me hizo sacar del pozo de la desesperación, del lodo cenagoso.","Salmos 40:1-2"],
+["Y conoceréis la verdad, y la verdad os hará libres.","Juan 8:32"],
+["¿Qué, pues, diremos a esto? Si Dios es por nosotros, ¿quién contra nosotros?","Romanos 8:31"],
+["Te alabaré; porque formidables, maravillosas son tus obras; estoy maravillado, y mi alma lo sabe muy bien.","Salmos 139:14"],
+["Y a Aquel que es poderoso para hacer todas las cosas mucho más abundantemente de lo que pedimos o entendemos, según el poder que actúa en nosotros.","Efesios 3:20"],
+["En el amor no hay temor, sino que el perfecto amor echa fuera el temor.","1 Juan 4:18"],
+["Alma mía, en Dios solamente reposa, porque de él es mi esperanza.","Salmos 62:5"],
+["Y me ha dicho: Bástate mi gracia; porque mi poder se perfecciona en la debilidad.","2 Corintios 12:9"],
+["Porque sol y escudo es Jehová Dios; gracia y gloria dará Jehová. No quitará el bien a los que andan en integridad.","Salmos 84:11"],
+["Así alumbre vuestra luz delante de los hombres, para que vean vuestras buenas obras, y glorifiquen a vuestro Padre que está en los cielos.","Mateo 5:16"],
+["Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres.","Colosenses 3:23"],
+["Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti, oh Jehová, roca mía, y redentor mío.","Salmos 19:14"],
+["Ninguna arma forjada contra ti prosperará, y condenarás toda lengua que se levante contra ti en juicio.","Isaías 54:17"],
+["Torre fuerte es el nombre de Jehová; a él correrá el justo, y será levantado.","Proverbios 18:10"],
+["El ladrón no viene sino para hurtar y matar y destruir; yo he venido para que tengan vida, y para que la tengan en abundancia.","Juan 10:10"],
+["Bendice, alma mía, a Jehová, y no olvides ninguno de sus beneficios. Él es quien perdona todas tus iniquidades, el que sana todas tus dolencias.","Salmos 103:2-3"],
+["Que si confesares con tu boca que Jesús es el Señor, y creyeres en tu corazón que Dios le levantó de los muertos, serás salvo.","Romanos 10:9"],
+["Oh hombre, él te ha declarado lo que es bueno, y qué pide Jehová de ti: solamente hacer justicia, y amar misericordia, y humillarte ante tu Dios.","Miqueas 6:8"],
+["Crea en mí, oh Dios, un corazón limpio, y renueva un espíritu recto dentro de mí.","Salmos 51:10"],
+["Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados, y limpiarnos de toda maldad.","1 Juan 1:9"],
+["Venid luego, dice Jehová, y estemos a cuenta: si vuestros pecados fueren como la grana, como la nieve serán emblanquecidos.","Isaías 1:18"],
+["Te haré entender, y te enseñaré el camino en que debes andar; sobre ti fijaré mis ojos.","Salmos 32:8"],
+["Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.","Mateo 7:7"],
+["Porque nada hay imposible para Dios.","Lucas 1:37"],
+["Me mostrarás la senda de la vida; en tu presencia hay plenitud de gozo; delicias a tu diestra para siempre.","Salmos 16:11"],
+["Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.","Filipenses 4:19"],
+["Si se humillare mi pueblo, sobre el cual mi nombre es invocado, y oraren, y buscaren mi rostro, y se convirtieren de sus malos caminos; entonces yo oiré desde los cielos, y perdonaré sus pecados, y sanaré su tierra.","2 Crónicas 7:14"],
+["Hazme oír por la mañana tu misericordia, porque en ti he confiado; hazme saber el camino por donde ande, porque a ti he elevado mi alma.","Salmos 143:8"],
+["Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto; porque separados de mí nada podéis hacer.","Juan 15:5"],
+["Acerquémonos, pues, confiadamente al trono de la gracia, para alcanzar misericordia y hallar gracia para el oportuno socorro.","Hebreos 4:16"],
+["Los que confían en Jehová son como el monte de Sion, que no se mueve, sino que permanece para siempre.","Salmos 125:1"],
+["Pues tengo por cierto que las aflicciones del tiempo presente no son comparables con la gloria venidera que en nosotros ha de manifestarse.","Romanos 8:18"],
+["Te dé conforme al deseo de tu corazón, y cumpla todo tu consejo.","Salmos 20:4"],
+["Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.","Proverbios 4:23"],
+["Y si alguno prevaleciere contra uno, dos le resistirán; y cordón de tres dobleces no se rompe pronto.","Eclesiastés 4:12"],
+["Mas tú, Jehová, eres escudo alrededor de mí; mi gloria, y el que levanta mi cabeza.","Salmos 3:3"],
+["Jehová te pastoreará siempre, y en las sequías saciará tu alma, y dará vigor a tus huesos; y serás como huerto de riego, y como manantial de aguas, cuyas aguas nunca faltan.","Isaías 58:11"],
+["Vosotros sois la luz del mundo; una ciudad asentada sobre un monte no se puede esconder.","Mateo 5:14"],
+["¿Por qué te abates, oh alma mía, y por qué te turbas dentro de mí? Espera en Dios; porque aún he de alabarle, salvación mía y Dios mío.","Salmos 42:11"],
+["Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.","1 Tesalonicenses 5:16-18"],
+["Entrad por sus puertas con acción de gracias, por sus atrios con alabanza; alabadle, bendecid su nombre.","Salmos 100:4"],
+["Estas cosas os he hablado para que en mí tengáis paz. En el mundo tendréis aflicción; pero confiad, yo he vencido al mundo.","Juan 16:33"],
+["Él sana a los quebrantados de corazón, y venda sus heridas.","Salmos 147:3"],
+["El alma generosa será prosperada; y el que saciare, él también será saciado.","Proverbios 11:25"],
+["Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron.","Apocalipsis 21:4"],
+["Será como árbol plantado junto a corrientes de aguas, que da su fruto en su tiempo, y su hoja no cae; y todo lo que hace, prosperará.","Salmos 1:3"],
+["Porque mis pensamientos no son vuestros pensamientos, ni vuestros caminos mis caminos, dijo Jehová. Como son más altos los cielos que la tierra, así son mis caminos más altos que vuestros caminos.","Isaías 55:8-9"],
+["Por Jehová son ordenados los pasos del hombre, y él aprueba su camino. Cuando el hombre cayere, no quedará postrado, porque Jehová sostiene su mano.","Salmos 37:23-24"],
+["Que estamos atribulados en todo, mas no angustiados; en apuros, mas no desesperados; perseguidos, mas no desamparados; derribados, pero no destruidos.","2 Corintios 4:8-9"],
+["Porque tú, Señor, eres bueno y perdonador, y grande en misericordia para con todos los que te invocan.","Salmos 86:5"],
+["Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos.","Mateo 18:20"],
+["Por lo cual estoy seguro de que ni la muerte, ni la vida, ni ángeles, ni principados, ni potestades, ni lo presente, ni lo por venir, ni lo alto, ni lo profundo, ni ninguna otra cosa creada nos podrá separar del amor de Dios, que es en Cristo Jesús Señor nuestro.","Romanos 8:38-39"],
+["Cercano está Jehová a todos los que le invocan, a todos los que le invocan de veras.","Salmos 145:18"],
+["Acercaos a Dios, y él se acercará a vosotros.","Santiago 4:8"],
+["El amor es sufrido, es benigno; el amor no tiene envidia, el amor no es jactancioso, no se envanece; no hace nada indebido, no busca lo suyo, no se irrita, no guarda rencor.","1 Corintios 13:4-5"],
+["Este es el día que hizo Jehová; nos gozaremos y alegraremos en él.","Salmos 118:24"],
+["Esforzaos y cobrad ánimo; no temáis, ni tengáis miedo de ellos, porque Jehová tu Dios es el que va contigo; no te dejará, ni te desamparará.","Deuteronomio 31:6"],
+["Jehová es mi fortaleza y mi escudo; en él confió mi corazón, y fui ayudado, por lo que se gozó mi corazón, y con mi cántico le alabaré.","Salmos 28:7"],
+["Por lo demás, hermanos míos, fortaleceos en el Señor, y en el poder de su fuerza.","Efesios 6:10"],
+["Mi carne y mi corazón desfallecen; mas la roca de mi corazón y mi porción es Dios para siempre.","Salmos 73:26"],
+["Aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo; tu vara y tu cayado me infundirán aliento.","Salmos 23:4"],
+["Ciertamente el bien y la misericordia me seguirán todos los días de mi vida, y en la casa de Jehová moraré por largos días.","Salmos 23:6"],
+["No temas, porque yo te redimí; te puse nombre, mío eres tú.","Isaías 43:1"],
+["Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces.","Jeremías 33:3"],
+["Así que, no os afanéis por el día de mañana, porque el día de mañana traerá su afán. Basta a cada día su propio mal.","Mateo 6:34"],
+["Y la paz de Dios, que sobrepasa todo entendimiento, guardará vuestros corazones y vuestros pensamientos en Cristo Jesús.","Filipenses 4:7"],
+["Encomienda a Jehová tu camino, y confía en él; y él hará.","Salmos 37:5"],
+["No se turbe vuestro corazón; creéis en Dios, creed también en mí.","Juan 14:1"],
+["Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre, sino por mí.","Juan 14:6"],
+["Mas Dios muestra su amor para con nosotros, en que siendo aún pecadores, Cristo murió por nosotros.","Romanos 5:8"],
+["Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios.","Efesios 2:8"],
+["Pero sin fe es imposible agradar a Dios; porque es necesario que el que se acerca a Dios crea que le hay, y que es galardonador de los que le buscan.","Hebreos 11:6"],
+["¿Por qué te abates, oh alma mía, y te turbas dentro de mí? Espera en Dios; porque aún he de alabarle, salvación mía y Dios mío.","Salmos 42:5"],
+["Jehová te guardará de todo mal; él guardará tu alma. Jehová guardará tu salida y tu entrada desde ahora y para siempre.","Salmos 121:7-8"],
+["El corazón alegre constituye buen remedio; mas el espíritu triste seca los huesos.","Proverbios 17:22"],
+["Porque los montes se moverán, y los collados temblarán, pero no se apartará de ti mi misericordia, ni el pacto de mi paz se quebrantará, dijo Jehová, el que tiene misericordia de ti.","Isaías 54:10"],
+["Bienaventurados los de limpio corazón, porque ellos verán a Dios.","Mateo 5:8"],
+["Por tanto, id, y haced discípulos a todas las naciones, bautizándolos en el nombre del Padre, y del Hijo, y del Espíritu Santo; enseñándoles que guarden todas las cosas que os he mandado; y he aquí yo estoy con vosotros todos los días, hasta el fin del mundo.","Mateo 28:19-20"],
+["Mis ovejas oyen mi voz, y yo las conozco, y me siguen, y yo les doy vida eterna; y no perecerán jamás, ni nadie las arrebatará de mi mano.","Juan 10:27-28"],
+["Le dijo Jesús: Yo soy la resurrección y la vida; el que cree en mí, aunque esté muerto, vivirá.","Juan 11:25"],
+["Ellos dijeron: Cree en el Señor Jesucristo, y serás salvo, tú y tu casa.","Hechos 16:31"],
+["Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme a la carne, sino conforme al Espíritu.","Romanos 8:1"],
+["Gozosos en la esperanza; sufridos en la tribulación; constantes en la oración.","Romanos 12:12"],
+["Y ahora permanecen la fe, la esperanza y el amor, estos tres; pero el mayor de ellos es el amor.","1 Corintios 13:13"],
+["De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas.","2 Corintios 5:17"],
+["Antes sed benignos unos con otros, misericordiosos, perdonándoos unos a otros, como Dios también os perdonó a vosotros en Cristo.","Efesios 4:32"],
+["Estando persuadido de esto, que el que comenzó en vosotros la buena obra, la perfeccionará hasta el día de Jesucristo.","Filipenses 1:6"],
+["Y la paz de Dios gobierne en vuestros corazones, a la que asimismo fuisteis llamados en un solo cuerpo; y sed agradecidos.","Colosenses 3:15"],
+["Mantengamos firme, sin fluctuar, la profesión de nuestra esperanza, porque fiel es el que prometió.","Hebreos 10:23"],
+["Confesaos vuestras ofensas unos a otros, y orad unos por otros, para que seáis sanados. La oración eficaz del justo puede mucho.","Santiago 5:16"],
+["Mas vosotros sois linaje escogido, real sacerdocio, nación santa, pueblo adquirido por Dios, para que anunciéis las virtudes de aquel que os llamó de las tinieblas a su luz admirable.","1 Pedro 2:9"],
+["Y el Espíritu y la Esposa dicen: Ven. Y el que oye, diga: Ven. Y el que tiene sed, venga; y el que quiera, tome del agua de la vida gratuitamente.","Apocalipsis 22:17"],
+["Estad quietos, y conoced que yo soy Dios; seré exaltado entre las naciones; enaltecido seré en la tierra.","Salmos 46:10"],
+["Diré yo a Jehová: Esperanza mía, y castillo mío; mi Dios, en quien confiaré.","Salmos 91:2"],
+["Misericordioso y clemente es Jehová; lento para la ira, y grande en misericordia.","Salmos 103:8"],
+["Mucha paz tienen los que aman tu ley, y no hay para ellos tropiezo.","Salmos 119:165"],
+["Los que sembraron con lágrimas, con regocijo segarán.","Salmos 126:5"],
+["Porque siete veces cae el justo, y vuelve a levantarse; mas los impíos caerán en el mal.","Proverbios 24:16"],
+["A ordenar que a los afligidos de Sion se les dé gloria en lugar de ceniza, óleo de gozo en lugar de luto, manto de alegría en lugar del espíritu angustiado.","Isaías 61:3"],
+["Jehová se manifestó a mí hace ya mucho tiempo, diciendo: Con amor eterno te he amado; por tanto, te prolongué mi misericordia.","Jeremías 31:3"],
+["Porque si perdonáis a los hombres sus ofensas, os perdonará también a vosotros vuestro Padre celestial.","Mateo 6:14-15"],
+["Y levantándose, vino a su padre. Y cuando aún estaba lejos, lo vio su padre, y fue movido a misericordia, y corrió, y se echó sobre su cuello, y le besó.","Lucas 15:20"],
+["Porque no envió Dios a su Hijo al mundo para condenar al mundo, sino para que el mundo sea salvo por él.","Juan 3:17"],
+["Así que, arrepentíos y convertíos, para que sean borrados vuestros pecados; para que vengan de la presencia del Señor tiempos de refrigerio.","Hechos 3:19"],
+["Porque el reino de Dios no es comida ni bebida, sino justicia, paz y gozo en el Espíritu Santo.","Romanos 14:17"],
+["Con Cristo estoy juntamente crucificado, y ya no vivo yo, mas vive Cristo en mí.","Gálatas 2:20"],
+["En quien tenemos redención por su sangre, el perdón de pecados según las riquezas de su gracia.","Efesios 1:7"],
+["La cual tenemos como segura y firme ancla del alma, y que penetra hasta dentro del velo.","Hebreos 6:19"],
+["Mas el Dios de toda gracia, que nos llamó a su gloria eterna en Jesucristo, después que hayáis padecido un poco de tiempo, él mismo os perfeccione, afirme, fortalezca y establezca.","1 Pedro 5:10"]
+];
+while(V.length<300){V.push(V[V.length%150])}
+const R=["Dios está contigo hoy. No te rindas, Él te sostiene.","Su luz te guía aunque no veas el camino completo.","Entrega tu carga a Dios, Él ya tiene la solución.","Cada día es una nueva oportunidad que Dios te regala.","Tu fe, aunque sea pequeña, mueve montañas.","Dios te ama tal como eres y te está transformando.","Confía, Dios obra en silencio a tu favor.","La paz de Dios guardará tu corazón hoy."];
+function nuevo(){
+let i=Math.floor(Math.random()*V.length);
+let p=P[Math.floor(Math.random()*P.length)];
+document.getElementById('v').innerText='"'+V[i][0]+'"';
+document.getElementById('r').innerText=V[i][1]+' • RVR 1960';
+document.getElementById('re').innerText=R[Math.floor(Math.random()*R.length)];
+document.getElementById('top').style.background=p.top;
+document.getElementById('addr').style.background=p.addr;
+document.getElementById('btn').style.background=p.btn;
+document.getElementById('card').style.borderColor=p.borde;
+document.getElementById('reflexBox').style.borderColor=p.borde;
+document.getElementById('r').style.color=p.acento;
+document.getElementById('tit').style.color=p.borde;
+document.getElementById('reftit').style.color=p.borde;
+document.getElementById('footAccent').style.color=p.acento;
+document.getElementById('pal').innerText='Paleta de hoy: '+p.n+' 🎨';
+}
+nuevo();
+</script></body></html>
